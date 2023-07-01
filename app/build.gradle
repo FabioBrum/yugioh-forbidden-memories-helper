@@ -32,13 +32,19 @@ android {
     }
 }
 
+configurations {
+    cleanedAnnotations
+    implementation.exclude group: 'org.jetbrains' , module:'annotations'
+}
+
 dependencies {
 
     implementation(libs.koin)
     implementation(project(":core:domain"))
     implementation(project(":core:network"))
+    implementation(project(":core:database"))
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

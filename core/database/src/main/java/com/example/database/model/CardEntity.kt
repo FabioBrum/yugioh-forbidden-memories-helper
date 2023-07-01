@@ -3,8 +3,11 @@ package com.example.database.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.database.DatabaseConstants
 
-@Entity(tableName = "cards")
+@Entity(tableName = DatabaseConstants.Card.table_name)
+@TypeConverters(GuardianConverter::class)
 data class CardEntity(
     @PrimaryKey
     val id: String,

@@ -67,7 +67,7 @@ class OnlineCardsRepositoryImpl: OnlineCardsRepository {
             "Magic" -> Type.MAGIC
             "Monster" -> Type.MONSTER
             "Ritual" -> Type.RITUAL
-            "Trap" -> Type.RITUAL
+            "Trap" -> Type.TRAP
             else -> Type.EQUIP
         }
 

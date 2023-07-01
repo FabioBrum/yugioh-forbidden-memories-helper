@@ -3,6 +3,7 @@ package com.example.yugioh_forbidden_memories_helper
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.example.database.di.databaseModule
 import com.example.domain.di.domainModule
 import com.example.domain.usecases.InitializeDatabaseIfNeededUseCaseImpl
 import com.example.network.OnlineCardsRepositoryImpl
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
             modules(listOf(
                 domainModule,
                 networkModule,
+                databaseModule,
                 mainModule
             ))
         }
