@@ -1,9 +1,11 @@
 [versions]
 room = "2.4.1"
 jsoup = "1.16.1"
+koin = "3.2.0"
 
 [libraries]
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup"}
+koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.database'
+    namespace 'com.example.network'
     compileSdk 33
 
     defaultConfig {
@@ -33,11 +33,10 @@ android {
 
 dependencies {
 
-    implementation(libs.room.ktx)
-    implementation(libs.room.runtime)
-    implementation(libs.room.compiler)
-    implementation(libs.jsoup)
+    implementation(project(":core:domain"))
 
+    implementation(libs.jsoup)
+    implementation(libs.koin)
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
