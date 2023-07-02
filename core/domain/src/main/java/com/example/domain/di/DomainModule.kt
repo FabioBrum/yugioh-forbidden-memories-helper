@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 val domainModule = module {
     single<InitializeDatabaseIfNeededUseCase> {
-        InitializeDatabaseIfNeededUseCaseImpl(get(), get())
+        InitializeDatabaseIfNeededUseCaseImpl(get(), get(), get())
     }
 }

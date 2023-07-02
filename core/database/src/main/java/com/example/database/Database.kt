@@ -9,11 +9,12 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.example.database.daos.CardDao
 import com.example.database.model.CardEntity
+import com.example.database.model.CharacterEntity
 import com.example.database.model.GuardianConverter
 import kotlinx.coroutines.CoroutineScope
 
 @Database(
-    entities = [CardEntity::class],
+    entities = [CardEntity::class, CharacterEntity::class],
     version = 1,
 )
 abstract class Database: RoomDatabase() {
