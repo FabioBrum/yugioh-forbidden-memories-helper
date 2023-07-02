@@ -1,14 +1,15 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
+
+apply plugin: 'kotlin-kapt'
 
 android {
     namespace 'com.example.database'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.database"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -36,8 +37,10 @@ dependencies {
 
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
-    implementation(libs.room.compiler)
-    implementation(libs.jsoup)
+    kapt(libs.room.compiler)
+    implementation(libs.koin)
+
+    implementation(project(":core:domain"))
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'

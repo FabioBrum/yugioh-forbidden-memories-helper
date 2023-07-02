@@ -1,4 +1,4 @@
-package com.example.domain
+package com.example.network
 
 import org.junit.Test
 
