@@ -1,18 +1,31 @@
 package com.example.network
 
+import android.content.Context
 import android.util.Log
 import com.example.domain.model.Card
 import com.example.domain.model.Guardian
 import com.example.domain.model.Nature
 import com.example.domain.model.Type
 import com.example.domain.repositories.OnlineCardsRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withTimeout
+import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
+import java.io.File
+import java.net.URL
 
-class OnlineCardsRepositoryImpl: OnlineCardsRepository {
+class OnlineCardsRepositoryImpl(
+    private val context: Context
+): OnlineCardsRepository {
 
-    override suspend fun downloadCards(): List<Card> {
-        return try {
+    override suspend fun downloadCardsWithCardLinks(): Pair<List<Card>, List<String>> =
+        try {
             val htmlPage = Jsoup.connect(URL).get()
             val table = htmlPage.select("table").first()
 
@@ -20,9 +33,11 @@ class OnlineCardsRepositoryImpl: OnlineCardsRepository {
 
             rows.removeFirst()
 
+            val allCardImageLinks = mutableListOf<String>()
             val allCards = rows.map { row ->
                 val elements = row.select("td").toMutableList()
                 val id = elements.getNextRow()
+                val cardLink = elements.first().select("a").attr("href")
                 val name = elements.getNextRow()
                 val type = elements.getNextRow()
                 val nature = elements.getNextRow()
@@ -32,6 +47,8 @@ class OnlineCardsRepositoryImpl: OnlineCardsRepository {
                 val defense = elements.getNextRow()
                 val password = elements.getNextRow()
                 val starCost = elements.getNextRow()
+
+                allCardImageLinks.add(cardLink)
 
                 Card(
                     id = id,
@@ -46,12 +63,37 @@ class OnlineCardsRepositoryImpl: OnlineCardsRepository {
                     starCost = convertValueToInt(starCost)
                 )
             }
+            Pair(allCards, allCardImageLinks)
+        } catch (e: Exception) {
+            Pair(emptyList(), emptyList())
+        }
 
-            Log.i("First Card: ", allCards.first().toString())
-            Log.i("Last Card: ", allCards.last().toString())
-            allCards
-        } catch (_: Exception) {
-            emptyList()
+    override suspend fun downloadCardImage(cardId: String, cardLink: String) {
+        try {
+            val htmlPageWithCardImage =
+                Jsoup.connect("$BASE_CARD_URL$cardLink")
+                .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                .get()
+
+            val imageLink = URL(
+                htmlPageWithCardImage.getElementsByClass("cardtable-main_image-wrapper")
+                    .first()
+                    ?.child(0)
+                    ?.child(0)
+                    ?.attr("src")
+            )
+
+            val imageData = imageLink.readBytes()
+
+            val imageFolder = File("${context.getExternalFilesDir(null)}/cardImages/")
+            if (!imageFolder.exists()) {
+                imageFolder.mkdirs()
+            }
+
+            val file = File(imageFolder, "$cardId.jpeg")
+            file.writeBytes(imageData)
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -125,6 +167,7 @@ class OnlineCardsRepositoryImpl: OnlineCardsRepository {
         }
 
     companion object {
+        const val BASE_CARD_URL = "https://yugioh.fandom.com"
         const val URL = "https://yugipedia.com/wiki/List_of_Yu-Gi-Oh!_Forbidden_Memories_cards"
     }
 }

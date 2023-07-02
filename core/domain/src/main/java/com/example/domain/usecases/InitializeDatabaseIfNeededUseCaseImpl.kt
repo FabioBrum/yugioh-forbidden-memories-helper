@@ -3,8 +3,9 @@ package com.example.domain.usecases
 import android.util.Log
 import com.example.domain.repositories.OfflineCardRepository
 import com.example.domain.repositories.OnlineCardsRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import java.lang.Exception
 
 class InitializeDatabaseIfNeededUseCaseImpl(
@@ -12,20 +13,30 @@ class InitializeDatabaseIfNeededUseCaseImpl(
     private val onlineCardsRepository: OnlineCardsRepository,
 ): InitializeDatabaseIfNeededUseCase {
 
-    override suspend fun invoke(): Flow<Boolean> = callbackFlow {
-        try {
-            if (offlineCardRepository.databaseHasCards()) {
-                trySend(true)
-            } else {
-                val cards = onlineCardsRepository.downloadCards()
-                val result = offlineCardRepository.saveCards(cards)
-                trySend(result)
+    override suspend fun invoke(coroutineScope: CoroutineScope): Boolean  {
+        return with(coroutineScope) {
+            try {
+                if (offlineCardRepository.databaseHasCards()) {
+                    true
+                } else {
+                    val cardsAndCardLinks = onlineCardsRepository.downloadCardsWithCardLinks()
+                    val cards = cardsAndCardLinks.first
+                    val cardLinks = cardsAndCardLinks.second
+
+                    cardLinks.mapIndexed { index, cardLink ->
+                        with(this) {
+                            async {
+                                onlineCardsRepository.downloadCardImage(cards[index].id, cardLink)
+                            }
+                        }
+                    }.awaitAll()
+
+                    offlineCardRepository.saveCards(cards)
+                }
+            } catch (e: Exception) {
+                Log.i("Erro teste", e.toString())
+                false
             }
-        } catch(e: Exception) {
-            Log.i("Erro teste", e.toString())
-            trySend(false)
-        } finally {
-            this.channel.close()
         }
     }
 }

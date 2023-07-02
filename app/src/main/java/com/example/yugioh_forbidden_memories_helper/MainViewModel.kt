@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.InitializeDatabaseIfNeededUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class MainViewModel(
     private val initializeDatabaseIfNeededUseCase: InitializeDatabaseIfNeededUseCase
@@ -13,9 +14,9 @@ class MainViewModel(
 
     fun test() {
         viewModelScope.launch(Dispatchers.IO) {
-            initializeDatabaseIfNeededUseCase().collect {
-                Log.i("Resultado teste", it.toString())
-            }
+            Log.i("Downloading card time","Download process started at ${Calendar.getInstance().time}")
+            initializeDatabaseIfNeededUseCase(this)
+            Log.i("Downloading card time","Download process finished at ${Calendar.getInstance().time}")
         }
     }
 }

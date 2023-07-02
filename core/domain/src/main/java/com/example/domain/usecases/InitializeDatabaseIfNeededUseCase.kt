@@ -1,8 +1,8 @@
 package com.example.domain.usecases
 
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.CoroutineScope
 
 interface InitializeDatabaseIfNeededUseCase {
 
-    suspend operator fun invoke(): Flow<Boolean>
+    suspend operator fun invoke(coroutineScope: CoroutineScope): Boolean
 }
