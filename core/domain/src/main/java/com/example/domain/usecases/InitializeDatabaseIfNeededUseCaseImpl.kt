@@ -17,9 +17,7 @@ class InitializeDatabaseIfNeededUseCaseImpl(
     override suspend fun invoke(coroutineScope: CoroutineScope): Boolean  {
         return with(coroutineScope) {
             try {
-                if (offlineCardRepository.databaseHasCards()) {
-                    true
-                } else {
+                if (!offlineCardRepository.databaseHasCards()) {
                     val cardsAndCardLinks = onlineCardsRepository.downloadCardsWithCardLinks()
                     val cards = cardsAndCardLinks.first
                     val cardLinks = cardsAndCardLinks.second
@@ -34,7 +32,6 @@ class InitializeDatabaseIfNeededUseCaseImpl(
 
                     offlineCardRepository.saveCards(cards)
                 }
-                // onlineCharacterRepository.downloadCharacters()
                 true
             } catch (e: Exception) {
                 false
