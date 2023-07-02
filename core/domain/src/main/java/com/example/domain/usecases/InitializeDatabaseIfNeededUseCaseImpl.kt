@@ -1,6 +1,5 @@
 package com.example.domain.usecases
 
-import android.util.Log
 import com.example.domain.repositories.OfflineCardRepository
 import com.example.domain.repositories.OnlineCardsRepository
 import kotlinx.coroutines.CoroutineScope
@@ -34,7 +33,6 @@ class InitializeDatabaseIfNeededUseCaseImpl(
                     offlineCardRepository.saveCards(cards)
                 }
             } catch (e: Exception) {
-                Log.i("Erro teste", e.toString())
                 false
             }
         }
