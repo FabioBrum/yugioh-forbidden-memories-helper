@@ -13,50 +13,51 @@ import java.util.UUID
 class OnlineCharacterRepositoryImpl(
     private val context: Context
 ): OnlineCharacterRepository {
-
-    override suspend fun downloadCharacters(): List<Character> =
+    override suspend fun getCharacterPageLinks(): List<String> =
         try {
             val htmlPage = Jsoup.connect(URL)
                 .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
                 .get()
 
-            val characterPagesUrls = getCharacterPageUrls(htmlPage)
-
-            val characters = characterPagesUrls.mapNotNull { characterPageUrl ->
-                val characterPage = Jsoup.connect("$BASE_URL$characterPageUrl")
-                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                    .get()
-
-                val id = UUID.randomUUID().toString()
-                val name = characterPage.selectFirst("caption.infobox-title")?.text().orEmpty()
-                val tables = characterPage.select("div.tabbertab")
-
-                if(tables.isNotEmpty()) {
-                    val powSADropOdds = getTableMappedValues(tables[0].child(1))
-                    val bcdDropOdds = getTableMappedValues(tables[1].child(1))
-                    val tecSADropOdds = getTableMappedValues(tables[2].child(1))
-
-                    val characterImageLink =
-                        characterPage.selectFirst("img[alt=$name]")?.attr("src").orEmpty()
-
-                    downloadCharacterImage(id, characterImageLink)
-
-                    Character(
-                        id = id,
-                        name = name,
-                        powSADropOdds = powSADropOdds,
-                        tecSADropOdds = tecSADropOdds,
-                        bcdDropOdds = bcdDropOdds
-                    )
-                } else {
-                    null
-                }
-            }
-
-            characters
+            getCharacterPageUrls(htmlPage)
         } catch (e: Exception) {
             e.printStackTrace()
             emptyList()
+        }
+
+    override suspend fun downloadCharacter(characterLink: String): Character? =
+        try {
+            val characterPage = Jsoup.connect("$BASE_URL$characterLink")
+                .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                .get()
+
+            val id = UUID.randomUUID().toString()
+            val name = characterPage.selectFirst("caption.infobox-title")?.text().orEmpty()
+            val tables = characterPage.select("div.tabbertab")
+
+            if(tables.isNotEmpty()) {
+                val powSADropOdds = getTableMappedValues(tables[0].child(1))
+                val bcdDropOdds = getTableMappedValues(tables[1].child(1))
+                val tecSADropOdds = getTableMappedValues(tables[2].child(1))
+
+                val characterImageLink =
+                    characterPage.selectFirst("img[alt=$name]")?.attr("src").orEmpty()
+
+                downloadCharacterImage(id, characterImageLink)
+
+                Character(
+                    id = id,
+                    name = name,
+                    powSADropOdds = powSADropOdds,
+                    tecSADropOdds = tecSADropOdds,
+                    bcdDropOdds = bcdDropOdds
+                )
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
 
     private fun getCharacterPageUrls(htmlPage: Document) =

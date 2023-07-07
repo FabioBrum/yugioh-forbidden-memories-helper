@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.example.database.daos.CardDao
+import com.example.database.daos.CharacterDao
 import com.example.database.model.CardEntity
 import com.example.database.model.CharacterEntity
 import com.example.database.model.GuardianConverter
@@ -20,6 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 abstract class Database: RoomDatabase() {
 
     abstract fun cardDao(): CardDao
+    abstract fun characterDao(): CharacterDao
 
     companion object {
 

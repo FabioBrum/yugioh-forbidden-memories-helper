@@ -5,10 +5,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import com.example.database.DatabaseConstants
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-@Entity
+@Entity(tableName = DatabaseConstants.Character.table_name)
 @TypeConverters(DropOddsConverter::class)
 data class CharacterEntity(
     @PrimaryKey

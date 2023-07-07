@@ -4,5 +4,7 @@ import com.example.domain.model.Character
 
 interface OnlineCharacterRepository {
 
-    suspend fun downloadCharacters(): List<Character>
+    suspend fun getCharacterPageLinks(): List<String>
+
+    suspend fun downloadCharacter(characterLink: String): Character?
 }
