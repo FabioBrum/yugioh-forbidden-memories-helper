@@ -31,7 +31,6 @@ class OnlineCharacterRepositoryImpl(
                 .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
                 .get()
 
-            val id = UUID.randomUUID().toString()
             val name = characterPage.selectFirst("caption.infobox-title")?.text().orEmpty()
             val tables = characterPage.select("div.tabbertab")
 
@@ -43,10 +42,9 @@ class OnlineCharacterRepositoryImpl(
                 val characterImageLink =
                     characterPage.selectFirst("img[alt=$name]")?.attr("src").orEmpty()
 
-                downloadCharacterImage(id, characterImageLink)
+                downloadCharacterImage(name, characterImageLink)
 
                 Character(
-                    id = id,
                     name = name,
                     powSADropOdds = powSADropOdds,
                     tecSADropOdds = tecSADropOdds,
@@ -87,7 +85,7 @@ class OnlineCharacterRepositoryImpl(
         }
     }
 
-    private fun downloadCharacterImage(characterId: String, characterImageLink: String) {
+    private fun downloadCharacterImage(characterName: String, characterImageLink: String) {
         try {
             val imageLink = URL(characterImageLink)
 
@@ -98,7 +96,7 @@ class OnlineCharacterRepositoryImpl(
                 imageFolder.mkdirs()
             }
 
-            val file = File(imageFolder, "$characterId.jpeg")
+            val file = File(imageFolder, "$characterName.jpeg")
             file.writeBytes(imageData)
         } catch (e: Exception) {
             e.printStackTrace()

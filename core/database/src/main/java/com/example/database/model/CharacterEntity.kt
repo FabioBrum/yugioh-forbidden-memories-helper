@@ -13,7 +13,6 @@ import com.google.gson.reflect.TypeToken
 @TypeConverters(DropOddsConverter::class)
 data class CharacterEntity(
     @PrimaryKey
-    val id: String,
     val name: String,
     @ColumnInfo(name = "pow_sa_drop_odds")
     val powSADropOdds: Map<String, Double>,

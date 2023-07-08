@@ -1,7 +1,6 @@
 package com.example.domain.model
 
 data class Character(
-    val id: String,
     val name: String,
     val powSADropOdds: Map<String, Double>,
     val tecSADropOdds: Map<String, Double>,
