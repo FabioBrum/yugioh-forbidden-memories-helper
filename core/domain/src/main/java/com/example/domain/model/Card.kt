@@ -1,5 +1,7 @@
 package com.example.domain.model
 
+import android.graphics.Bitmap
+
 data class Card(
     val id: String,
     val name: String,
@@ -10,5 +12,6 @@ data class Card(
     val attack: Int,
     val defense: Int,
     val password: String,
-    val starCost: Int
+    val starCost: Int,
+    val image: Bitmap?,
 )

@@ -7,4 +7,6 @@ interface OfflineCardRepository {
     suspend fun databaseHasCards(): Boolean
 
     suspend fun saveCards(cards: List<Card>): Boolean
+
+    suspend fun getAllCardsWithImages(): List<Card>
 }
