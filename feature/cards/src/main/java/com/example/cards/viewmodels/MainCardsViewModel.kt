@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cards.model.ListType
+import com.example.cards.model.OrderBy
+import com.example.cards.model.UICardListFilters
 import com.example.domain.model.Card
 import com.example.domain.repositories.OfflineCardRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,9 +19,25 @@ class MainCardsViewModel(
     private val _allCards: MutableLiveData<List<Card>> = MutableLiveData()
     val allCards: LiveData<List<Card>> = _allCards
 
+    private val _filters: MutableLiveData<UICardListFilters> = MutableLiveData(
+        UICardListFilters(
+            listType = ListType.EXPENDED,
+            orderBy = OrderBy.NAME,
+            attackRange = Pair(0, 10000),
+            defenseRange = Pair(0, 10000)
+        )
+    )
+    val filters: LiveData<UICardListFilters> = _filters
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _allCards.postValue(offlineCardRepository.getAllCardsWithImages())
+        }
+    }
+
+    fun updateFilters(newFilters: UICardListFilters?) {
+        newFilters?.let {
+            _filters.postValue(it)
         }
     }
 }

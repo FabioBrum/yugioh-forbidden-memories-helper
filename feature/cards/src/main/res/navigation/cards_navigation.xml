@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cards_navigation"
     app:startDestination="@id/mainCardsFragment">
 
     <fragment
         android:id="@+id/mainCardsFragment"
-        android:name="com.example.cards.fragments.MainCardsFragment"/>
+        android:name="com.example.cards.fragments.MainCardsFragment"
+        tools:layout="@layout/fragment_main_cards">
+
+        <action
+            android:id="@+id/mainCardsFragment_to_mainCardsFiltersFragment"
+            app:destination="@id/mainCardsFiltersFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/mainCardsFiltersFragment"
+        android:name="com.example.cards.fragments.MainCardsFiltersFragment"
+        tools:layout="@layout/fragment_main_cards_filters"/>
 
 </navigation>

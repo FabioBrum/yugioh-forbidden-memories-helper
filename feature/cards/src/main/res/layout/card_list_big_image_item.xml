@@ -21,19 +21,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/card_image_default"
-            tools:backgroundTint="#914141"/>
+            android:src="@drawable/card_image_default"/>
 
         <TextView
             android:id="@+id/textView_cardListDetails_cardName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:padding="2dp"
             app:layout_constraintEnd_toEndOf="@id/imageView_cardListDetails_cardImage"
             app:layout_constraintStart_toStartOf="@id/imageView_cardListDetails_cardImage"
             app:layout_constraintTop_toBottomOf="@id/imageView_cardListDetails_cardImage"
             android:fontFamily="@font/rubik_light"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:textSize="16sp"
             android:gravity="center"
@@ -43,6 +43,7 @@
             android:id="@+id/textView_cardListDetails_cardAttributes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:padding="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView_cardListDetails_cardName"
             app:layout_constraintStart_toStartOf="@id/imageView_cardListDetails_cardImage"

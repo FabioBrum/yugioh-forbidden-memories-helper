@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.cards.adapters.delegates.CardsListBigImageDelegate
+import com.example.designsystem.delegates.CardsListDetailsDelegate
 import com.example.domain.model.Card
 
 class CardsListAdapter: RecyclerView.Adapter<ViewHolder>() {
@@ -13,14 +14,14 @@ class CardsListAdapter: RecyclerView.Adapter<ViewHolder>() {
         field = value
     }
 
+    private val cardsListDetailsDelegate = CardsListDetailsDelegate()
     private val cardsListBigImageDelegate = CardsListBigImageDelegate()
-    private var listState: CardsListAdapterState = CardsListAdapterState.CARD_LIST_BIG_IMAGES_TYPE
+    var listState: CardsListAdapterState = CardsListAdapterState.CARD_LIST_DETAILS_TYPE; private set
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when(viewType) {
             CardsListAdapterState.CARD_LIST_DETAILS_TYPE.value -> {
-                // TODO: Create delegate for list details type
-                cardsListBigImageDelegate.onCreateViewHolder(
+                cardsListDetailsDelegate.onCreateViewHolder(
                     LayoutInflater.from(parent.context),
                     parent
                 )
@@ -45,8 +46,7 @@ class CardsListAdapter: RecyclerView.Adapter<ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when(listState) {
             CardsListAdapterState.CARD_LIST_DETAILS_TYPE -> {
-                // TODO: Create delegate for list details type
-                cardsListBigImageDelegate.onBindViewHolder(
+                cardsListDetailsDelegate.onBindViewHolder(
                     holder,
                     allCards[position]
                 )
@@ -61,6 +61,14 @@ class CardsListAdapter: RecyclerView.Adapter<ViewHolder>() {
     }
 
     override fun getItemViewType(position: Int) = listState.value
+
+    fun toggleListType() {
+        listState = when(listState) {
+            CardsListAdapterState.CARD_LIST_DETAILS_TYPE -> CardsListAdapterState.CARD_LIST_BIG_IMAGES_TYPE
+            CardsListAdapterState.CARD_LIST_BIG_IMAGES_TYPE -> CardsListAdapterState.CARD_LIST_DETAILS_TYPE
+        }
+        notifyDataSetChanged()
+    }
 
     enum class CardsListAdapterState(val value: Int) {
         CARD_LIST_DETAILS_TYPE(1),
