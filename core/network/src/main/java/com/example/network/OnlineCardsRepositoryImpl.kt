@@ -60,7 +60,8 @@ class OnlineCardsRepositoryImpl(
                     attack = convertValueToInt(attack),
                     defense = convertValueToInt(defense),
                     password = password,
-                    starCost = convertValueToInt(starCost)
+                    starCost = convertValueToInt(starCost),
+                    image = null
                 )
             }
             Pair(allCards, allCardImageLinks)

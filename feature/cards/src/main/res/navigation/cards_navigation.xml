@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cards_navigation"
+    app:startDestination="@id/mainCardsFragment">
+
+    <fragment
+        android:id="@+id/mainCardsFragment"
+        android:name="com.example.cards.fragments.MainCardsFragment"/>
+
+</navigation>

@@ -1,5 +1,6 @@
 package com.example.database.mappers
 
+import android.graphics.Bitmap
 import com.example.database.model.CardEntity
 import com.example.domain.model.Guardian
 import com.example.database.model.Guardian as EntityGuardian
@@ -22,19 +23,7 @@ fun DomainCard.toEntity() = CardEntity(
     starCost = starCost
 )
 
-fun List<DomainCard>.toEntity() = this.map { CardEntity(
-        id = it.id,
-        name = it.name,
-        type = it.type.toEntity(),
-        nature = it.nature.toEntity(),
-        guardians = it.guardians.toEntity(),
-        level = it.level,
-        attack = it.attack,
-        defense = it.defense,
-        password = it.password,
-        starCost = it.starCost
-    )
-}
+fun List<DomainCard>.toEntity() = this.map { it.toEntity() }
 
 fun Type.toEntity() =
     when(this) {
@@ -71,12 +60,12 @@ fun Nature.toEntity() =
         else -> EntityNature.NONE
     }
 
-fun Pair<Guardian, Guardian>.toEntity(): List<EntityGuardian> {
+fun Pair<Guardian ,Guardian>.toEntity(): List<EntityGuardian> {
 
-    return listOf(mapGuardian(this.first), mapGuardian(this.second))
+    return listOf(mapGuardianToEntity(this.first), mapGuardianToEntity(this.second))
 }
 
-private fun mapGuardian(guardian: Guardian) =
+private fun mapGuardianToEntity(guardian: Guardian) =
     when(guardian) {
         Guardian.SUN -> EntityGuardian.SUN
         Guardian.MOON -> EntityGuardian.MOON
@@ -89,4 +78,72 @@ private fun mapGuardian(guardian: Guardian) =
         Guardian.PLUTO -> EntityGuardian.PLUTO
         Guardian.NEPTUNE -> EntityGuardian.NEPTUNE
         else -> EntityGuardian.NONE
+    }
+
+fun CardEntity.toDomain(image: Bitmap?) = DomainCard(
+    id = id,
+    name = name,
+    type = type.toDomain(),
+    nature = nature.toDomain(),
+    guardians = guardians.toDomain(),
+    level = level,
+    attack = attack,
+    defense = defense,
+    password = password,
+    starCost = starCost,
+    image = image
+)
+
+fun EntityType.toDomain() =
+    when(this) {
+        EntityType.EQUIP -> Type.EQUIP
+        EntityType.MAGIC -> Type.MAGIC
+        EntityType.MONSTER -> Type.MONSTER
+        EntityType.RITUAL -> Type.RITUAL
+        EntityType.TRAP -> Type.TRAP
+    }
+
+fun EntityNature.toDomain() =
+    when(this) {
+        EntityNature.AQUA -> Nature.AQUA
+        EntityNature.BEAST -> Nature.BEAST
+        EntityNature.BEAST_WARRIOR -> Nature.BEAST_WARRIOR
+        EntityNature.DINOSAUR -> Nature.DINOSAUR
+        EntityNature.DRAGON -> Nature.DRAGON
+        EntityNature.FAIRY -> Nature.FAIRY
+        EntityNature.FIEND -> Nature.FIEND
+        EntityNature.FISH -> Nature.FISH
+        EntityNature.INSECT -> Nature.INSECT
+        EntityNature.MACHINE -> Nature.MACHINE
+        EntityNature.PLANT -> Nature.PLANT
+        EntityNature.PYRO -> Nature.PYRO
+        EntityNature.REPTILE -> Nature.REPTILE
+        EntityNature.ROCK -> Nature.ROCK
+        EntityNature.SEA_SERPENT -> Nature.SEA_SERPENT
+        EntityNature.SPELL_CASTER -> Nature.SPELL_CASTER
+        EntityNature.THUNDER -> Nature.THUNDER
+        EntityNature.WARRIOR -> Nature.WARRIOR
+        EntityNature.WINGED_BEAST -> Nature.WINGED_BEAST
+        EntityNature.ZOMBIE -> Nature.ZOMBIE
+        else -> Nature.NONE
+    }
+
+fun List<EntityGuardian>.toDomain(): Pair<Guardian, Guardian> {
+
+    return Pair(mapGuardianToDomain(this.component1()), mapGuardianToDomain(this.component2()))
+}
+
+private fun mapGuardianToDomain(guardian: EntityGuardian) =
+    when(guardian) {
+        EntityGuardian.SUN -> Guardian.SUN
+        EntityGuardian.MOON -> Guardian.MOON
+        EntityGuardian.MERCURY -> Guardian.MERCURY
+        EntityGuardian.VENUS -> Guardian.VENUS
+        EntityGuardian.MARS -> Guardian.MARS
+        EntityGuardian.JUPITER -> Guardian.JUPITER
+        EntityGuardian.SATURN -> Guardian.SATURN
+        EntityGuardian.URANUS -> Guardian.URANUS
+        EntityGuardian.PLUTO -> Guardian.PLUTO
+        EntityGuardian.NEPTUNE -> Guardian.NEPTUNE
+        else -> Guardian.NONE
     }
