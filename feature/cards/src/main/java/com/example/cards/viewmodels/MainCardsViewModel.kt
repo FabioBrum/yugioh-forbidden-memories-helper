@@ -40,4 +40,20 @@ class MainCardsViewModel(
             _filters.postValue(it)
         }
     }
+
+    fun filterCards() : List<Card> {
+        val filters = filters.value!!
+        return allCards.value?.let { listOfCards ->
+            listOfCards.filter { card ->
+                card.attack in (filters.attackRange.first .. filters.attackRange.second) &&
+                card.defense in (filters.defenseRange.first .. filters.defenseRange.second)
+            }.sortedBy {
+                when(filters.orderBy) {
+                    OrderBy.NAME -> it.name
+                    OrderBy.ATTACK -> it.attack.toString()
+                    OrderBy.DEFENSE -> it.defense.toString()
+                }
+            }
+        } ?: emptyList()
+    }
 }

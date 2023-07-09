@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.cards.adapters.delegates.CardsListBigImageDelegate
+import com.example.cards.model.ListType
 import com.example.designsystem.delegates.CardsListDetailsDelegate
 import com.example.domain.model.Card
 
@@ -62,10 +63,10 @@ class CardsListAdapter: RecyclerView.Adapter<ViewHolder>() {
 
     override fun getItemViewType(position: Int) = listState.value
 
-    fun toggleListType() {
-        listState = when(listState) {
-            CardsListAdapterState.CARD_LIST_DETAILS_TYPE -> CardsListAdapterState.CARD_LIST_BIG_IMAGES_TYPE
-            CardsListAdapterState.CARD_LIST_BIG_IMAGES_TYPE -> CardsListAdapterState.CARD_LIST_DETAILS_TYPE
+    fun setListState(listType: ListType?) {
+        listState = when(listType) {
+            ListType.COMPACT -> CardsListAdapterState.CARD_LIST_DETAILS_TYPE
+            ListType.EXPENDED, null -> CardsListAdapterState.CARD_LIST_BIG_IMAGES_TYPE
         }
         notifyDataSetChanged()
     }
