@@ -10,8 +10,10 @@ import com.example.cards.R
 import com.example.cards.databinding.FragmentMainCardsFiltersBinding
 import com.example.cards.model.ListType
 import com.example.cards.model.OrderBy
+import com.example.cards.model.Ordination
 import com.example.cards.viewmodels.MainCardsFiltersViewModel
 import com.example.cards.viewmodels.MainCardsViewModel
+import com.example.domain.model.Type
 import org.koin.androidx.navigation.koinNavGraphViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -76,6 +78,34 @@ class MainCardsFiltersFragment : Fragment() {
             mainCardsFiltersViewModel.updateDefenseRange(values[0].toInt(), values[1].toInt())
         }
 
+        radioGroupMainCardFiltersOrdination.setOnCheckedChangeListener { _, checkedId ->
+            val ordination = when(checkedId) {
+                radioButtonMainCardFiltersAscending.id -> Ordination.ASCENDING
+                else -> Ordination.DESCENDING
+            }
+            mainCardsFiltersViewModel.updateOrdination(ordination)
+        }
+
+        checkBoxMainCardFiltersEquip.setOnCheckedChangeListener { _, isChecked ->
+            mainCardsFiltersViewModel.updateCardTypes(Type.EQUIP, isChecked)
+        }
+
+        checkBoxMainCardFiltersMagic.setOnCheckedChangeListener { _, isChecked ->
+            mainCardsFiltersViewModel.updateCardTypes(Type.MAGIC, isChecked)
+        }
+
+        checkBoxMainCardFiltersMonster.setOnCheckedChangeListener { _, isChecked ->
+            mainCardsFiltersViewModel.updateCardTypes(Type.MONSTER, isChecked)
+        }
+
+        checkBoxMainCardFiltersRitual.setOnCheckedChangeListener { _, isChecked ->
+            mainCardsFiltersViewModel.updateCardTypes(Type.RITUAL, isChecked)
+        }
+
+        checkBoxMainCardFiltersTrap.setOnCheckedChangeListener { _, isChecked ->
+            mainCardsFiltersViewModel.updateCardTypes(Type.TRAP, isChecked)
+        }
+
         imageButtonMainCardFiltersGoBack.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -89,7 +119,9 @@ class MainCardsFiltersFragment : Fragment() {
     private fun FragmentMainCardsFiltersBinding.setupObservers() {
         mainCardsFiltersViewModel.filters.observe(viewLifecycleOwner) { filters ->
             handleListType(filters.listType)
+            handleCardTypes(filters.cardTypes)
             handleOrderBy(filters.orderBy)
+            handleOrdination(filters.ordination)
             handleAttackRange(filters.attackRange)
             handleDefenseRange(filters.defenseRange)
         }
@@ -104,6 +136,24 @@ class MainCardsFiltersFragment : Fragment() {
         }
     }
 
+    private fun FragmentMainCardsFiltersBinding.handleCardTypes(cardTypes: List<Type>) {
+        if(cardTypes.contains(Type.TRAP)) {
+            checkBoxMainCardFiltersTrap.isChecked = true
+        }
+        if(cardTypes.contains(Type.RITUAL)) {
+            checkBoxMainCardFiltersRitual.isChecked = true
+        }
+        if(cardTypes.contains(Type.MONSTER)) {
+            checkBoxMainCardFiltersMonster.isChecked = true
+        }
+        if(cardTypes.contains(Type.MAGIC)) {
+            checkBoxMainCardFiltersMagic.isChecked = true
+        }
+        if(cardTypes.contains(Type.EQUIP)) {
+            checkBoxMainCardFiltersEquip.isChecked = true
+        }
+    }
+
     private fun FragmentMainCardsFiltersBinding.handleOrderBy(orderBy: OrderBy) {
         when(orderBy) {
             OrderBy.NAME ->
@@ -112,6 +162,15 @@ class MainCardsFiltersFragment : Fragment() {
                 radioGroupMainCardFiltersOrderBy.check(radioButtonMainCardFiltersAttack.id)
             else ->
                 radioGroupMainCardFiltersOrderBy.check(radioButtonMainCardFiltersDefense.id)
+        }
+    }
+
+    private fun FragmentMainCardsFiltersBinding.handleOrdination(ordination: Ordination) {
+        when(ordination) {
+            Ordination.ASCENDING ->
+                radioGroupMainCardFiltersOrdination.check(radioButtonMainCardFiltersAscending.id)
+            Ordination.DESCENDING ->
+                radioGroupMainCardFiltersOrdination.check(radioButtonMainCardFiltersDescending.id)
         }
     }
 

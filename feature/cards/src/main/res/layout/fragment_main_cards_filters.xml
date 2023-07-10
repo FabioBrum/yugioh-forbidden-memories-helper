@@ -48,7 +48,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLine_mainCardFilters_mainGuide"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"/>
 
             <TextView
                 android:id="@+id/textView_mainCardFilters_listTypeLbl"
@@ -92,6 +99,84 @@
                     android:buttonTint="@color/colorPrimary"
                     android:text="Compact"/>
             </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView_mainCardFilters_cardTypesLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideLine_mainCardFilters_mainGuide"
+                android:layout_margin="16dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/rubik_light"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="Card types:"/>
+
+            <CheckBox
+                android:id="@+id/checkBox_mainCardFilters_ritual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/textView_mainCardFilters_cardTypesLbl"
+                app:layout_constraintStart_toStartOf="@id/textView_mainCardFilters_cardTypesLbl"
+                android:buttonTint="@color/colorPrimary"
+                tools:checked="true"
+                android:fontFamily="@font/rubik_light"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text="Ritual"/>
+
+            <CheckBox
+                android:id="@+id/checkBox_mainCardFilters_magic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@id/checkBox_mainCardFilters_ritual"
+                app:layout_constraintStart_toEndOf="@id/checkBox_mainCardFilters_ritual"
+                android:buttonTint="@color/colorPrimary"
+                tools:checked="true"
+                android:fontFamily="@font/rubik_light"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text="Magic"/>
+
+            <CheckBox
+                android:id="@+id/checkBox_mainCardFilters_equip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/checkBox_mainCardFilters_ritual"
+                app:layout_constraintStart_toStartOf="@id/checkBox_mainCardFilters_ritual"
+                android:buttonTint="@color/colorPrimary"
+                android:fontFamily="@font/rubik_light"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text="Equip"/>
+
+            <CheckBox
+                android:id="@+id/checkBox_mainCardFilters_trap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@id/checkBox_mainCardFilters_equip"
+                app:layout_constraintStart_toEndOf="@id/checkBox_mainCardFilters_equip"
+                android:buttonTint="@color/colorPrimary"
+                android:fontFamily="@font/rubik_light"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text="Trap"/>
+
+            <CheckBox
+                android:id="@+id/checkBox_mainCardFilters_monster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/checkBox_mainCardFilters_equip"
+                app:layout_constraintStart_toStartOf="@id/checkBox_mainCardFilters_equip"
+                android:buttonTint="@color/colorPrimary"
+                tools:checked="true"
+                android:fontFamily="@font/rubik_light"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text="Monster"/>
 
             <TextView
                 android:id="@+id/textView_mainCardFilters_orderByLbl"
@@ -144,6 +229,48 @@
                     android:textSize="14sp"
                     android:buttonTint="@color/colorPrimary"
                     android:text="Defense"/>
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView_mainCardFilters_ordinationLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/checkBox_mainCardFilters_monster"
+                app:layout_constraintStart_toStartOf="@id/guideLine_mainCardFilters_mainGuide"
+                android:layout_margin="16dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/rubik_light"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="Ordination:"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroup_mainCardFilters_ordination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/textView_mainCardFilters_ordinationLbl"
+                app:layout_constraintTop_toBottomOf="@id/textView_mainCardFilters_ordinationLbl">
+
+                <RadioButton
+                    android:id="@+id/radioButton_mainCardFilters_descending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:checked="true"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="Descending"/>
+
+                <RadioButton
+                    android:id="@+id/radioButton_mainCardFilters_ascending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="Ascending"/>
             </RadioGroup>
 
             <TextView
