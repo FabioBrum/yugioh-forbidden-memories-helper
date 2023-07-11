@@ -20,4 +20,9 @@
         android:name="com.example.cards.fragments.MainCardsFiltersFragment"
         tools:layout="@layout/fragment_main_cards_filters"/>
 
+    <fragment
+        android:id="@+id/cardDetailsDialogFragment"
+        android:name="com.example.designsystem.dialog.CardDetailDialogFragment"
+        tools:layout="@layout/fragment_card_detail_dialog">
+    </fragment>
 </navigation>

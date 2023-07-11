@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cards.databinding.CardListBigImageItemBinding
 import com.example.domain.model.Card
 
-class CardsListBigImageDelegate {
+class CardsListBigImageDelegate(private val listener: CardsListBigImageListener) {
 
     fun onCreateViewHolder(
         inflater: LayoutInflater,
@@ -31,10 +31,19 @@ class CardsListBigImageDelegate {
                 image.setImageBitmap(it)
             }
             attributes.text = "%d/%d".format(card.attack,card.defense)
+
+            cardView.setOnClickListener {
+                listener.onCardClicked(card)
+            }
         }
     }
 
+    interface CardsListBigImageListener {
+        fun onCardClicked(card: Card)
+    }
+
     inner class CardsListBigImageViewHolder(itemView: CardListBigImageItemBinding): RecyclerView.ViewHolder(itemView.root) {
+        val cardView = itemView.cardViewCardListDetailsContent
         val name = itemView.textViewCardListDetailsCardName
         val image = itemView.imageViewCardListDetailsCardImage
         val attributes = itemView.textViewCardListDetailsCardAttributes

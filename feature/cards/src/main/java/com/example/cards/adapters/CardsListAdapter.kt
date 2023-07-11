@@ -9,14 +9,15 @@ import com.example.cards.model.ListType
 import com.example.designsystem.delegates.CardsListDetailsDelegate
 import com.example.domain.model.Card
 
-class CardsListAdapter: RecyclerView.Adapter<ViewHolder>() {
+class CardsListAdapter(private val listener: CardsListListener):
+    RecyclerView.Adapter<ViewHolder>(), CardsListBigImageDelegate.CardsListBigImageListener {
 
     var allCards: List<Card> = emptyList(); set(value) {
         field = value
     }
 
     private val cardsListDetailsDelegate = CardsListDetailsDelegate()
-    private val cardsListBigImageDelegate = CardsListBigImageDelegate()
+    private val cardsListBigImageDelegate = CardsListBigImageDelegate(this)
     var listState: CardsListAdapterState = CardsListAdapterState.CARD_LIST_DETAILS_TYPE; private set
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -74,5 +75,13 @@ class CardsListAdapter: RecyclerView.Adapter<ViewHolder>() {
     enum class CardsListAdapterState(val value: Int) {
         CARD_LIST_DETAILS_TYPE(1),
         CARD_LIST_BIG_IMAGES_TYPE(2)
+    }
+
+    override fun onCardClicked(card: Card) {
+        listener.onCardClicked(card)
+    }
+
+    interface CardsListListener {
+        fun onCardClicked(card: Card)
     }
 }
