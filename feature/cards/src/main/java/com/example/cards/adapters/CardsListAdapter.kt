@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.cards.adapters.delegates.CardsListBigImageDelegate
-import com.example.cards.model.ListType
+import com.example.domain.model.ListType
 import com.example.designsystem.delegates.CardsListDetailsDelegate
 import com.example.domain.model.Card
 

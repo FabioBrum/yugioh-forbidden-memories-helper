@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.designsystem.databinding.FragmentCardDetailDialogBinding
 import com.example.domain.model.Card
+import com.example.domain.model.Type
 import java.util.Locale
 
 class CardDetailDialogFragment(private val card: Card) : DialogFragment() {
@@ -28,18 +29,35 @@ class CardDetailDialogFragment(private val card: Card) : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            textViewCardDetailsDialogCardName.text = card.name
-            textViewCardDetailsDialogCardAttributes.text = "%d/%d".format(card.attack, card.defense)
-            card.image?.let {
-                imageViewCardDetailsDialogCardImage.setImageBitmap(card.image)
+            when(card.type) {
+                Type.MONSTER -> handleMonsterTypeCard(card)
+                else -> handleOtherTypesOfCard(card)
             }
-
-            textViewCardDetailsDialogGuardians.text = "%s / %s".format(
-                card.guardians.first.name.lowercase()
-                    .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() },
-                card.guardians.second.name.lowercase()
-                    .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-            )
         }
+    }
+
+    private fun FragmentCardDetailDialogBinding.handleMonsterTypeCard(card: Card) {
+        textViewCardDetailsDialogCardName.text = card.name
+        textViewCardDetailsDialogCardAttributes.text = "%d/%d".format(card.attack, card.defense)
+        card.image?.let {
+            imageViewCardDetailsDialogCardImage.setImageBitmap(card.image)
+        }
+
+        textViewCardDetailsDialogGuardians.text = "%s / %s".format(
+            card.guardians.first.name.lowercase().replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+            },
+            card.guardians.second.name.lowercase().replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+            }
+        )
+    }
+
+    private fun FragmentCardDetailDialogBinding.handleOtherTypesOfCard(card: Card) {
+        textViewCardDetailsDialogCardName.text = card.name
+        textViewCardDetailsDialogCardAttributes.text =
+            card.type.name.lowercase().replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+            }
     }
 }

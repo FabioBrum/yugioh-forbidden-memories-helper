@@ -11,7 +11,7 @@ import com.example.cards.R
 import com.example.cards.adapters.CardsListAdapter
 import com.example.cards.databinding.FragmentMainCardsBinding
 import com.example.cards.di.featureCardsModule
-import com.example.cards.model.ListType
+import com.example.domain.model.ListType
 import com.example.cards.viewmodels.MainCardsViewModel
 import com.example.designsystem.dialog.CardDetailDialogFragment
 import com.example.domain.model.Card

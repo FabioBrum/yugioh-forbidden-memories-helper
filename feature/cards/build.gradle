@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.koin.navigation)
     implementation(libs.nav.ui)
     implementation(libs.nav.fragment)
+    implementation(libs.flow.layout)
 
     implementation(project(":core:domain"))
     implementation(project(":feature:designsystem"))

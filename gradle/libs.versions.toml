@@ -5,6 +5,7 @@ koin = "3.2.0"
 mockk = "1.13.5"
 gson = "2.10.1"
 nav = "2.5.3"
+flowLayout = "3.0.0"
 
 [libraries]
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -18,3 +19,4 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson"}
 nav-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "nav"}
 nav-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "nav"}
 safe-args = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "nav" }
+flow-layout = { group = "com.google.android.flexbox", name = "flexbox", version.ref = "flowLayout" }

@@ -6,6 +6,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val featureCardsModule = module {
-    viewModel { MainCardsViewModel(get()) }
+    viewModel { MainCardsViewModel(get(), get()) }
     viewModel { MainCardsFiltersViewModel() }
 }

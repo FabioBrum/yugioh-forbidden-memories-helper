@@ -1,6 +1,5 @@
 package com.example.domain.usecases
 
-import android.util.Log
 import com.example.domain.repositories.OfflineCardRepository
 import com.example.domain.repositories.OfflineCharacterRepository
 import com.example.domain.repositories.OnlineCardsRepository
@@ -10,7 +9,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import java.lang.Exception
 
-class InitializeDatabaseIfNeededUseCaseImpl(
+internal class InitializeDatabaseIfNeededUseCaseImpl(
     private val offlineCardRepository: OfflineCardRepository,
     private val onlineCardsRepository: OnlineCardsRepository,
     private val onlineCharacterRepository: OnlineCharacterRepository,

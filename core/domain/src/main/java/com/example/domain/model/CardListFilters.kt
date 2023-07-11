@@ -1,14 +1,13 @@
-package com.example.cards.model
+package com.example.domain.model
 
-import com.example.domain.model.Type
-
-data class UICardListFilters(
+data class CardListFilters(
     val listType: ListType,
     val orderBy: OrderBy,
     val attackRange: Pair<Int, Int>,
     val defenseRange: Pair<Int, Int>,
     val ordination: Ordination,
-    val cardTypes: List<Type>
+    val cardTypes: List<Type>,
+    val cardNatures: List<Nature>
 )
 
 enum class ListType {

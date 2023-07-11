@@ -5,14 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.CompoundButton.OnCheckedChangeListener
+import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.example.cards.R
 import com.example.cards.databinding.FragmentMainCardsFiltersBinding
-import com.example.cards.model.ListType
-import com.example.cards.model.OrderBy
-import com.example.cards.model.Ordination
+import com.example.domain.model.ListType
+import com.example.domain.model.OrderBy
+import com.example.domain.model.Ordination
 import com.example.cards.viewmodels.MainCardsFiltersViewModel
 import com.example.cards.viewmodels.MainCardsViewModel
+import com.example.domain.model.Nature
 import com.example.domain.model.Type
 import org.koin.androidx.navigation.koinNavGraphViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,13 +39,19 @@ class MainCardsFiltersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainCardsViewModel.filters.value?.let {
-            mainCardsFiltersViewModel.initFilter(it)
-        }
-
         with(binding) {
+            mainCardsViewModel.filters.value?.let { filters ->
+                mainCardsFiltersViewModel.initFilter(filters)
+                handleListType(filters.listType)
+                handleCardTypes(filters.cardTypes)
+                handleOrderBy(filters.orderBy)
+                handleOrdination(filters.ordination)
+                handleAttackRange(filters.attackRange)
+                handleDefenseRange(filters.defenseRange)
+                handleCardNatures(filters.cardNatures)
+                handleFiltersWithMonsters(filters.cardTypes.contains(Type.MONSTER))
+            }
             setupListeners()
-            setupObservers()
         }
     }
 
@@ -86,24 +97,39 @@ class MainCardsFiltersFragment : Fragment() {
             mainCardsFiltersViewModel.updateOrdination(ordination)
         }
 
-        checkBoxMainCardFiltersEquip.setOnCheckedChangeListener { _, isChecked ->
-            mainCardsFiltersViewModel.updateCardTypes(Type.EQUIP, isChecked)
+        val cardTypeClickListener =
+            OnCheckedChangeListener { buttonView, isChecked ->
+                val type = when(buttonView) {
+                    checkBoxMainCardFiltersEquip -> Type.EQUIP
+                    checkBoxMainCardFiltersMagic -> Type.MAGIC
+                    checkBoxMainCardFiltersMonster -> {
+                        handleFiltersWithMonsters(isChecked)
+                        Type.MONSTER
+                    }
+                    checkBoxMainCardFiltersRitual -> Type.RITUAL
+                    else -> Type.TRAP
+                }
+                mainCardsFiltersViewModel.updateCardTypes(type, isChecked)
+            }
+
+        flexboxMainCardFiltersAllCardTypes.children.forEach {
+            (it as CheckBox).setOnCheckedChangeListener(cardTypeClickListener)
         }
 
-        checkBoxMainCardFiltersMagic.setOnCheckedChangeListener { _, isChecked ->
-            mainCardsFiltersViewModel.updateCardTypes(Type.MAGIC, isChecked)
+        val natureTypeClickListener =
+            OnCheckedChangeListener { buttonView, isChecked ->
+                val nature = mapCheckBoxToNature(buttonView)
+                mainCardsFiltersViewModel.updateCardNature(nature, isChecked)
+            }
+
+        flexboxMainCardFiltersAllNatureTypes.children.forEach {
+            (it as CheckBox).setOnCheckedChangeListener(natureTypeClickListener)
         }
 
-        checkBoxMainCardFiltersMonster.setOnCheckedChangeListener { _, isChecked ->
-            mainCardsFiltersViewModel.updateCardTypes(Type.MONSTER, isChecked)
-        }
-
-        checkBoxMainCardFiltersRitual.setOnCheckedChangeListener { _, isChecked ->
-            mainCardsFiltersViewModel.updateCardTypes(Type.RITUAL, isChecked)
-        }
-
-        checkBoxMainCardFiltersTrap.setOnCheckedChangeListener { _, isChecked ->
-            mainCardsFiltersViewModel.updateCardTypes(Type.TRAP, isChecked)
+        textViewMainCardFiltersCardNatureClearAll.setOnClickListener {
+            flexboxMainCardFiltersAllNatureTypes.children.forEach {
+                (it as CheckBox).isChecked = false
+            }
         }
 
         imageButtonMainCardFiltersGoBack.setOnClickListener {
@@ -113,17 +139,6 @@ class MainCardsFiltersFragment : Fragment() {
         materialButtonMainCardFiltersSave.setOnClickListener {
             mainCardsViewModel.updateFilters(mainCardsFiltersViewModel.filters.value)
             findNavController().popBackStack()
-        }
-    }
-
-    private fun FragmentMainCardsFiltersBinding.setupObservers() {
-        mainCardsFiltersViewModel.filters.observe(viewLifecycleOwner) { filters ->
-            handleListType(filters.listType)
-            handleCardTypes(filters.cardTypes)
-            handleOrderBy(filters.orderBy)
-            handleOrdination(filters.ordination)
-            handleAttackRange(filters.attackRange)
-            handleDefenseRange(filters.defenseRange)
         }
     }
 
@@ -188,5 +203,43 @@ class MainCardsFiltersFragment : Fragment() {
 
         rangeSliderMainCardFiltersDefenseRange.values =
             listOf(defenseRange.first.toFloat(), defenseRange.second.toFloat())
+    }
+
+    private fun FragmentMainCardsFiltersBinding.handleCardNatures(cardNatures: List<Nature>) {
+        flexboxMainCardFiltersAllNatureTypes.children.forEach { view ->
+            val nature = mapCheckBoxToNature(view)
+            (view as CheckBox).isChecked = cardNatures.contains(nature)
+        }
+    }
+
+    private fun FragmentMainCardsFiltersBinding.handleFiltersWithMonsters(isChecked: Boolean) {
+        groupMainCardFiltersMonsterFilters.isVisible = isChecked
+        if(!isChecked) {
+            radioGroupMainCardFiltersOrderBy.check(radioButtonMainCardFiltersName.id)
+        }
+    }
+
+    private fun FragmentMainCardsFiltersBinding.mapCheckBoxToNature(view: View) = when(view) {
+        checkBoxMainCardFiltersAqua -> Nature.AQUA
+        checkBoxMainCardFiltersBeast -> Nature.BEAST
+        checkBoxMainCardFiltersBeastWarrior -> Nature.BEAST_WARRIOR
+        checkBoxMainCardFiltersDinosaur -> Nature.DINOSAUR
+        checkBoxMainCardFiltersDragon -> Nature.DRAGON
+        checkBoxMainCardFiltersFairy -> Nature.FAIRY
+        checkBoxMainCardFiltersFiend -> Nature.FIEND
+        checkBoxMainCardFiltersFish -> Nature.FISH
+        checkBoxMainCardFiltersInsect -> Nature.INSECT
+        checkBoxMainCardFiltersMachine -> Nature.MACHINE
+        checkBoxMainCardFiltersPlant -> Nature.PLANT
+        checkBoxMainCardFiltersPyro -> Nature.PYRO
+        checkBoxMainCardFiltersReptile -> Nature.REPTILE
+        checkBoxMainCardFiltersRock -> Nature.ROCK
+        checkBoxMainCardFiltersSeaSerpent -> Nature.SEA_SERPENT
+        checkBoxMainCardFiltersSpellCaster -> Nature.SPELL_CASTER
+        checkBoxMainCardFiltersThunder -> Nature.THUNDER
+        checkBoxMainCardFiltersWarrior -> Nature.WARRIOR
+        checkBoxMainCardFiltersWingedBeast -> Nature.WINGED_BEAST
+        checkBoxMainCardFiltersZombie -> Nature.ZOMBIE
+        else -> Nature.NONE
     }
 }

@@ -113,71 +113,74 @@
                 android:textSize="16sp"
                 android:text="Card types:"/>
 
-            <CheckBox
-                android:id="@+id/checkBox_mainCardFilters_ritual"
-                android:layout_width="wrap_content"
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexbox_mainCardFilters_allCardTypes"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/textView_mainCardFilters_cardTypesLbl"
-                app:layout_constraintStart_toStartOf="@id/textView_mainCardFilters_cardTypesLbl"
-                android:buttonTint="@color/colorPrimary"
-                tools:checked="true"
-                android:fontFamily="@font/rubik_light"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Ritual"/>
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                app:flexWrap="wrap"
+                app:justifyContent="space_evenly"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideLine_mainCardFilters_mainGuide"
+                app:layout_constraintTop_toBottomOf="@id/textView_mainCardFilters_cardTypesLbl">
 
-            <CheckBox
-                android:id="@+id/checkBox_mainCardFilters_magic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="@id/checkBox_mainCardFilters_ritual"
-                app:layout_constraintStart_toEndOf="@id/checkBox_mainCardFilters_ritual"
-                android:buttonTint="@color/colorPrimary"
-                tools:checked="true"
-                android:fontFamily="@font/rubik_light"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Magic"/>
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_ritual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    tools:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Ritual"/>
 
-            <CheckBox
-                android:id="@+id/checkBox_mainCardFilters_equip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/checkBox_mainCardFilters_ritual"
-                app:layout_constraintStart_toStartOf="@id/checkBox_mainCardFilters_ritual"
-                android:buttonTint="@color/colorPrimary"
-                android:fontFamily="@font/rubik_light"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Equip"/>
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_magic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    tools:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Magic"/>
 
-            <CheckBox
-                android:id="@+id/checkBox_mainCardFilters_trap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="@id/checkBox_mainCardFilters_equip"
-                app:layout_constraintStart_toEndOf="@id/checkBox_mainCardFilters_equip"
-                android:buttonTint="@color/colorPrimary"
-                android:fontFamily="@font/rubik_light"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Trap"/>
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_equip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Equip"/>
 
-            <CheckBox
-                android:id="@+id/checkBox_mainCardFilters_monster"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/checkBox_mainCardFilters_equip"
-                app:layout_constraintStart_toStartOf="@id/checkBox_mainCardFilters_equip"
-                android:buttonTint="@color/colorPrimary"
-                tools:checked="true"
-                android:fontFamily="@font/rubik_light"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Monster"/>
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_trap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:buttonTint="@color/colorPrimary"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Trap"/>
 
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_monster"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    tools:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Monster"/>
+
+            </com.google.android.flexbox.FlexboxLayout>
             <TextView
                 android:id="@+id/textView_mainCardFilters_orderByLbl"
                 android:layout_width="wrap_content"
@@ -235,7 +238,7 @@
                 android:id="@+id/textView_mainCardFilters_ordinationLbl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/checkBox_mainCardFilters_monster"
+                app:layout_constraintTop_toBottomOf="@id/flexbox_mainCardFilters_allCardTypes"
                 app:layout_constraintStart_toStartOf="@id/guideLine_mainCardFilters_mainGuide"
                 android:layout_margin="16dp"
                 android:textStyle="bold"
@@ -388,6 +391,285 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 tools:text="4500"/>
+
+            <TextView
+                android:id="@+id/textView_mainCardFilters_cardNatureLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/rangeSlider_mainCardFilters_defenseRange"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="16dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/rubik_light"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="Nature types:"/>
+
+            <TextView
+                android:id="@+id/textView_mainCardFilters_cardNatureClearAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/textView_mainCardFilters_cardNatureLbl"
+                app:layout_constraintStart_toEndOf="@id/textView_mainCardFilters_cardNatureLbl"
+                android:layout_marginStart="8dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/rubik_light"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:text="Clear all"/>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexbox_mainCardFilters_allNatureTypes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                app:flexWrap="wrap"
+                app:justifyContent="space_evenly"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_mainCardFilters_cardNatureLbl">
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_aqua"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Aqua"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_beast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Beast"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_beastWarrior"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Beast Warrior"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_dinosaur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Dinosaur"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_dragon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Dragon"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_fairy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Fairy"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_fiend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Fiend"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_fish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Fish"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_insect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Insect"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_machine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Machine"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_plant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Plant"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_pyro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Pyro"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_reptile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Reptile"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_rock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Rock"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_seaSerpent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Sea Serpent"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_spellCaster"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Spell Caster"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_thunder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Thunder"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_warrior"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Warrior"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_wingedBeast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Winged Beast"/>
+
+                <CheckBox
+                    android:id="@+id/checkBox_mainCardFilters_zombie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"
+                    android:fontFamily="@font/rubik_light"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:text="Zombie"/>
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_mainCardFilters_monsterFilters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="
+                textView_mainCardFilters_orderByLbl,
+                radioGroup_mainCardFilters_orderBy,
+                textView_mainCardFilters_attackRangeLbl,
+                textView_mainCardFilters_minAttack,
+                rangeSlider_mainCardFilters_attackRange,
+                textView_mainCardFilters_maxAttack,
+                textView_mainCardFilters_defenseRangeLbl,
+                textView_mainCardFilters_minDefense,
+                rangeSlider_mainCardFilters_defenseRange,
+                textView_mainCardFilters_maxDefense,
+                textView_mainCardFilters_cardNatureLbl,
+                textView_mainCardFilters_cardNatureClearAll,
+                flexbox_mainCardFilters_allNatureTypes" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
