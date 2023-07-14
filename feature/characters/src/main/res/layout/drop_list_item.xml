@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/constraintLaoyout_dropListItem_content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,13 +12,13 @@
     android:layout_marginStart="2dp">
 
     <TextView
-        android:id="@+id/textView_cardListDetails_name"
+        android:id="@+id/textView_dropListItem_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/textView_cardListDetails_attributes"
+        app:layout_constraintEnd_toStartOf="@id/textView_dropListItem_attributes"
         android:fontFamily="@font/rubik_light"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -25,15 +26,32 @@
         tools:text="Blue eyes White Dragon"/>
 
     <TextView
-        android:id="@+id/textView_cardListDetails_attributes"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView_dropListItem_attributes"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textView_dropListItem_name"
+        app:layout_constraintEnd_toStartOf="@id/textView_dropListItem_odd"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
         android:fontFamily="@font/rubik_light"
         android:textColor="@color/black"
         android:textSize="14sp"
         tools:text="3000/2500"/>
+
+    <TextView
+        android:id="@+id/textView_dropListItem_odd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/textView_dropListItem_attributes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:fontFamily="@font/rubik_light"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        tools:text="1.07%"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

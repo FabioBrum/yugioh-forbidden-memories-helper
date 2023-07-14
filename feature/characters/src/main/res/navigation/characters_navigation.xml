@@ -8,5 +8,21 @@
     <fragment
         android:id="@+id/mainCharactersFragment"
         android:name="com.example.characters.fragments.MainCharactersFragment"
-        tools:layout="@layout/fragment_main_characters"/>
+        tools:layout="@layout/fragment_main_characters">
+
+        <action
+            android:id="@+id/action_mainCharactersFragment_to_characterDetailsFragment"
+            app:destination="@id/characterDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/characterDetailsFragment"
+        android:name="com.example.characters.fragments.CharacterDetailsFragment"
+        tools:layout="@layout/fragment_character_details">
+
+        <argument
+            android:name="characterName"
+            app:argType="string"
+            app:nullable="false"/>
+    </fragment>
 </navigation>

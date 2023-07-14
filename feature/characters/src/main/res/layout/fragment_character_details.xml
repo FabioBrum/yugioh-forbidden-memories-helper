@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.CharacterDetailsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_characterDetails_topBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topBarHeight"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/rubik_light"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:text="Character details"/>
+
+        <ImageView
+            android:id="@+id/imageButton_mainCardFilters_goBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="12dp"
+            app:tint="@color/white"
+            android:src="?attr/actionModeCloseDrawable"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
+    <ImageView
+        android:id="@+id/imageView_characterDetails_image"
+        android:layout_width="256dp"
+        android:layout_height="128dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/millenium_puzzle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout_characterDetails_topBar"/>
+
+    <TextView
+        android:id="@+id/textView_characterDetails_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="@id/imageView_characterDetails_image"
+        app:layout_constraintTop_toBottomOf="@id/imageView_characterDetails_image"
+        app:layout_constraintStart_toStartOf="@id/imageView_characterDetails_image"
+        android:textStyle="bold"
+        android:fontFamily="@font/rubik_light"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        tools:text="Villager 1"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup_characterDetails_dropTypes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_characterDetails_name"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioButton_characterDetails_powSA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"
+            android:checked="true"
+            android:button="@android:color/transparent"
+            android:background="@animator/drop_type_background"
+            android:textColor="@animator/drop_type_text"
+            android:textStyle="bold"
+            android:fontFamily="@font/rubik_light"
+            android:textSize="16sp"
+            android:text="POW: S/A"
+            android:textAllCaps="true" />
+
+        <RadioButton
+            android:id="@+id/radioButton_characterDetails_tecSA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"
+            android:button="@android:color/transparent"
+            android:background="@animator/drop_type_background"
+            android:textColor="@animator/drop_type_text"
+            android:textStyle="bold"
+            android:fontFamily="@font/rubik_light"
+            android:textSize="16sp"
+            android:text="TEC: S/A"
+            android:textAllCaps="true" />
+
+        <RadioButton
+            android:id="@+id/radioButton_characterDetails_bcd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"
+            android:button="@android:color/transparent"
+            android:background="@animator/drop_type_background"
+            android:textColor="@animator/drop_type_text"
+            android:fontFamily="@font/rubik_light"
+            android:textSize="16sp"
+            android:text="POW/TEC: B/C/D"
+            android:textAllCaps="true" />
+    </RadioGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_characterDetails_cards"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup_characterDetails_dropTypes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/card_list_details_item"
+        tools:itemCount="20"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

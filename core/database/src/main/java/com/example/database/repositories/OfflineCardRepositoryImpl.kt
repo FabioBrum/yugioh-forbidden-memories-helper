@@ -37,4 +37,20 @@ class OfflineCardRepositoryImpl(
         }
     }
 
+    override suspend fun getCard(cardId: String): Card? {
+        val card = database().cardDao().getCard(cardId)
+        return try {
+            val cardImage = context.assets.open("cardImages/${card?.id}.jpeg")
+            card?.toDomain(
+                BitmapFactory.decodeStream(cardImage)
+            )
+        } catch (e: IOException) {
+            card?.toDomain(null)
+        }
+    }
+
+    override suspend fun getCards(cardIds: List<String>): List<Card> {
+        return database().cardDao().getCards(cardIds).map { it.toDomain(null) }
+    }
+
 }

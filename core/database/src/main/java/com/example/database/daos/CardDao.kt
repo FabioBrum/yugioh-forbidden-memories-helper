@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.database.DatabaseConstants
 import com.example.database.model.CardEntity
-import com.example.domain.model.Card
 
 @Dao
 interface CardDao {
@@ -16,4 +15,16 @@ interface CardDao {
 
     @Insert(entity = CardEntity::class, onConflict = OnConflictStrategy.REPLACE)
     fun saveCards(cards: List<CardEntity>): List<Long>
+
+    @Query(
+        "SELECT * FROM ${DatabaseConstants.Card.table_name} " +
+                "WHERE ${DatabaseConstants.Card.id} = :cardId"
+    )
+    fun getCard(cardId: String): CardEntity?
+
+    @Query(
+        "SELECT * FROM ${DatabaseConstants.Card.table_name} " +
+            "WHERE ${DatabaseConstants.Card.id} IN (:cardIds)"
+    )
+    fun getCards(cardIds: List<String>): List<CardEntity>
 }

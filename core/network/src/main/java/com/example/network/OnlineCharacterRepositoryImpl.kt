@@ -8,7 +8,6 @@ import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import java.io.File
 import java.net.URL
-import java.util.UUID
 
 class OnlineCharacterRepositoryImpl(
     private val context: Context
@@ -48,7 +47,8 @@ class OnlineCharacterRepositoryImpl(
                     name = name,
                     powSADropOdds = powSADropOdds,
                     tecSADropOdds = tecSADropOdds,
-                    bcdDropOdds = bcdDropOdds
+                    bcdDropOdds = bcdDropOdds,
+                    image = null
                 )
             } else {
                 null

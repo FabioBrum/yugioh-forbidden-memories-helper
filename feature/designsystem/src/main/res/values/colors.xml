@@ -3,5 +3,6 @@
     <color name="colorPrimary">#BC1F1F</color>
     <color name="colorSecondary">#DFAB38</color>
     <color name="black">#FF000000</color>
-    <color name="grey">#BCB5B5</color>
+    <color name="light_grey">#BCB5B5</color>
+    <color name="light_white">#ECECEC</color>
 </resources>
