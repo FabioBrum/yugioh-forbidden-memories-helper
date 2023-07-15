@@ -679,6 +679,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:text="Save"
+        android:textColor="@color/white"
         android:backgroundTint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

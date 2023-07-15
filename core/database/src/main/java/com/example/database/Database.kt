@@ -38,7 +38,7 @@ abstract class Database: RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     com.example.database.Database::class.java,
-                    "database"
+                    "canonical_database"
                 )
                 .createFromAsset("database.db")
                 .fallbackToDestructiveMigration()

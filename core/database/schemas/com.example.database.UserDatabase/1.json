@@ -1,0 +1,47 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "3888d99adddc4f45deae5e52f7ad22a5",
+    "entities": [
+      {
+        "tableName": "fusion",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`card_one_id` TEXT NOT NULL, `card_two_id` TEXT NOT NULL, `final_card_id` TEXT NOT NULL, PRIMARY KEY(`card_one_id`, `card_two_id`))",
+        "fields": [
+          {
+            "fieldPath": "cardOneId",
+            "columnName": "card_one_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cardTwoId",
+            "columnName": "card_two_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "finalCardId",
+            "columnName": "final_card_id",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "card_one_id",
+            "card_two_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3888d99adddc4f45deae5e52f7ad22a5')"
+    ]
+  }
+}

@@ -1,9 +1,9 @@
-package com.example.cards.adapters.delegates
+package com.example.designsystem.adapters.delegates
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cards.databinding.CardListBigImageItemBinding
+import com.example.designsystem.databinding.CardListBigImageItemBinding
 import com.example.domain.model.Card
 
 class CardsListBigImageDelegate(private val listener: CardsListBigImageListener) {

@@ -1,10 +1,11 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
-    namespace 'com.example.yugioh_forbidden_memories_helper'
+    namespace 'com.example.fusion'
     compileSdk 33
 
     viewBinding {
@@ -12,8 +13,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.yugioh_forbidden_memories_helper"
-        minSdk 30
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -34,38 +34,26 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    buildscript {
-        repositories {
-            google()
-        }
-        dependencies {
-            classpath(libs.safe.args)
-        }
-    }
-}
-
-configurations {
-    cleanedAnnotations
-    implementation.exclude group: 'org.jetbrains' , module:'annotations'
 }
 
 dependencies {
 
     implementation(libs.koin)
+    implementation(libs.koin.navigation)
     implementation(libs.nav.ui)
     implementation(libs.nav.fragment)
+    implementation(libs.flow.layout)
+
     implementation(project(":core:domain"))
-    implementation(project(":core:network"))
-    implementation(project(":core:database"))
-    implementation(project(":feature:cards"))
-    implementation(project(":feature:fusion"))
-    implementation(project(":feature:characters"))
+    implementation(project(":feature:designsystem"))
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'

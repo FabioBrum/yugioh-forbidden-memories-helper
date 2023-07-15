@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@id/fusion_navigation"
+        android:icon="@drawable/card_icon"
+        android:title="Fusion"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@id/cards_navigation"
         android:icon="@drawable/card_icon"
         android:title="Cards"

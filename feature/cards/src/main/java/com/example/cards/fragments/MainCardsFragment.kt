@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.cards.R
-import com.example.cards.adapters.CardsListAdapter
+import com.example.designsystem.adapters.CardsListAdapter
 import com.example.cards.databinding.FragmentMainCardsBinding
 import com.example.cards.di.featureCardsModule
 import com.example.domain.model.ListType

@@ -1,10 +1,10 @@
-package com.example.cards.adapters
+package com.example.designsystem.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.cards.adapters.delegates.CardsListBigImageDelegate
+import com.example.designsystem.adapters.delegates.CardsListBigImageDelegate
 import com.example.domain.model.ListType
 import com.example.designsystem.delegates.CardsListDetailsDelegate
 import com.example.domain.model.Card
@@ -70,6 +70,18 @@ class CardsListAdapter(private val listener: CardsListListener):
             ListType.EXPENDED, null -> CardsListAdapterState.CARD_LIST_BIG_IMAGES_TYPE
         }
         notifyDataSetChanged()
+    }
+
+    fun filterByName(typedName: String) {
+        allCards = allCards.filter { it.name.contains(typedName) }
+    }
+
+    fun filterByAttack(attack: String) {
+        allCards = allCards.filter { it.attack.toString().contains(attack) }
+    }
+
+    fun filterByDefense(defense: String) {
+        allCards = allCards.filter { it.defense.toString().contains(defense) }
     }
 
     enum class CardsListAdapterState(val value: Int) {
