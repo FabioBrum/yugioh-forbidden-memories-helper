@@ -1,5 +1,5 @@
 # Yu-Gi-Oh! Forbidden Memories Helper
-This is a personal app that I started to build after one year of experience on Android programming. I've always enjoyed playing the *[Yu-Gi-Oh! Forbidden Memories]*(https://pt.wikipedia.org/wiki/Yu-Gi-Oh!_Forbidden_Memories) game on my Playstation 1 during my childhood. After all these years, I still play it both on my console and my smartphone (with emulators).
+This is a personal app that I started to build after one year of experience on Android programming. I've always enjoyed playing the [*Yu-Gi-Oh! Forbidden Memories*](https://pt.wikipedia.org/wiki/Yu-Gi-Oh!_Forbidden_Memories) game on my Playstation 1 during my childhood. After all these years, I still play it both on my console and my smartphone (with emulators).
 
 But even after more than a decade playing this game I still have the same problem: *there is so much information that I can't keep track of it!* There are so many possible fusions, and each character in the game drops different cards, with different odds for each type of victory, that my mind can't keep up storing all of it :sweat_smile: ...
 
