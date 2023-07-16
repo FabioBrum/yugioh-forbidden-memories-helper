@@ -14,6 +14,7 @@ class CardsListAdapter(private val listener: CardsListListener):
 
     var allCards: List<Card> = emptyList(); set(value) {
         field = value
+        notifyDataSetChanged()
     }
 
     private val cardsListDetailsDelegate = CardsListDetailsDelegate()
@@ -70,18 +71,6 @@ class CardsListAdapter(private val listener: CardsListListener):
             ListType.EXPENDED, null -> CardsListAdapterState.CARD_LIST_BIG_IMAGES_TYPE
         }
         notifyDataSetChanged()
-    }
-
-    fun filterByName(typedName: String) {
-        allCards = allCards.filter { it.name.contains(typedName) }
-    }
-
-    fun filterByAttack(attack: String) {
-        allCards = allCards.filter { it.attack.toString().contains(attack) }
-    }
-
-    fun filterByDefense(defense: String) {
-        allCards = allCards.filter { it.defense.toString().contains(defense) }
     }
 
     enum class CardsListAdapterState(val value: Int) {

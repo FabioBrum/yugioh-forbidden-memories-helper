@@ -3,7 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fusion_navigation"
-    app:startDestination="@id/createFusionFragment">
+    app:startDestination="@id/mainFusionFragment">
+
+    <fragment
+        android:id="@+id/mainFusionFragment"
+        android:name="com.example.fusion.fragments.MainFusionFragment"
+        tools:layout="@layout/fragment_main_fusion">
+
+        <action
+            android:id="@+id/action_mainFusionFragment_to_createFusionFragment"
+            app:destination="@id/createFusionFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/createFusionFragment"

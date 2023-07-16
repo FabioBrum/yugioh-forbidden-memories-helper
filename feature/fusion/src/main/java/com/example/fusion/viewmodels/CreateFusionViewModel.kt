@@ -3,29 +3,31 @@ package com.example.fusion.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Card
+import com.example.domain.model.Fusion
+import com.example.domain.repositories.FusionRepository
 import com.example.domain.repositories.OfflineCardRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class CreateFusionViewModel(
+    private val fusionRepository: FusionRepository,
     private val offlineCardRepository: OfflineCardRepository
 ) : ViewModel() {
 
     private val _allCards: MutableLiveData<List<Card>> = MutableLiveData()
     val allCards: LiveData<List<Card>> = _allCards
 
-    private val _selectedCardOneId: MutableLiveData<String?> = MutableLiveData(null)
-    val selectedCardOneId: LiveData<String?> = _selectedCardOneId
+    private val _selectedCardOne: MutableLiveData<Card?> = MutableLiveData(null)
+    val selectedCardOne: LiveData<Card?> = _selectedCardOne
 
-    private val _selectedCardTwoId: MutableLiveData<String?> = MutableLiveData(null)
-    val selectedCardTwoId: LiveData<String?> = _selectedCardTwoId
+    private val _selectedCardTwo: MutableLiveData<Card?> = MutableLiveData(null)
+    val selectedCardTwo: LiveData<Card?> = _selectedCardTwo
 
-    private val _selectedCardResultId: MutableLiveData<String?> = MutableLiveData(null)
-    val selectedCardResultId: LiveData<String?> = _selectedCardResultId
+    private val _selectedCardResult: MutableLiveData<Card?> = MutableLiveData(null)
+    val selectedCardResult: LiveData<Card?> = _selectedCardResult
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -35,30 +37,39 @@ class CreateFusionViewModel(
         }
     }
 
-    fun updateSelectedCards(id: String) {
-        if(selectedCardOneId.value == null) {
-            _selectedCardOneId.value = id
+    fun updateSelectedCards(card: Card) {
+        if(selectedCardOne.value == null) {
+            _selectedCardOne.value = card
             return
         }
-        if(_selectedCardTwoId.value == null) {
-            _selectedCardTwoId.value = id
+        if(_selectedCardTwo.value == null) {
+            _selectedCardTwo.value = card
             return
         }
-        if(selectedCardResultId.value == null) {
-            _selectedCardResultId.value = id
+        if(selectedCardResult.value == null) {
+            _selectedCardResult.value = card
             return
         }
     }
 
     fun clearCardOne() {
-        _selectedCardOneId.value = null
+        _selectedCardOne.value = null
     }
 
     fun clearCardTwo() {
-        _selectedCardTwoId.value = null
+        _selectedCardTwo.value = null
     }
 
     fun clearCardResult() {
-        _selectedCardResultId.value = null
+        _selectedCardResult.value = null
+    }
+
+    fun saveFusion() = liveData(Dispatchers.IO) {
+        val cardOne = selectedCardOne.value
+        val cardTwo = selectedCardTwo.value
+        val finalCard = selectedCardResult.value
+        if(cardOne != null && cardTwo != null && finalCard != null) {
+            emit(fusionRepository.saveFusion(Fusion(cardOne, cardTwo, finalCard)))
+        }
     }
 }

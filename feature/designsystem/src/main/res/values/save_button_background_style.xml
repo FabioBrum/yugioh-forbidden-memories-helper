@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MaterialButtonStyle"
+        android:parent="Widget.MaterialComponents.Button.UnelevatedButton"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <item name="backgroundTint">@color/save_button_background</item>
+    </style>
+</resources>

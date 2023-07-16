@@ -4,7 +4,7 @@
 
     <item
         android:id="@id/fusion_navigation"
-        android:icon="@drawable/card_icon"
+        android:icon="@drawable/fusion_icon"
         android:title="Fusion"
         app:showAsAction="ifRoom" />
 

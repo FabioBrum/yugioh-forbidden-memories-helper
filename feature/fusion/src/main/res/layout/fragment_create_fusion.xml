@@ -125,6 +125,7 @@
         android:id="@+id/constraintLayout_createFusion_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="24dp"
         android:background="@color/light_white"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -199,7 +200,7 @@
             android:text="Save"
             android:enabled="false"
             android:textColor="@color/white"
-            android:background="@drawable/save_button_background"
+            style="@style/MaterialButtonStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.designsystem.adapters.CardsListAdapter
 import com.example.domain.model.Card
@@ -28,13 +29,11 @@ class CreateFusionFragment : Fragment(), CardsListAdapter.CardsListListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCreateFusionBinding.inflate(inflater, container, false)
-        loadKoinModules(fusionModule)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         with(binding) {
             setupObservers()
             setupListeners()
@@ -50,24 +49,24 @@ class CreateFusionFragment : Fragment(), CardsListAdapter.CardsListListener {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }
 
-        createFusionViewModel.selectedCardOneId.observe(viewLifecycleOwner) { cardId ->
-            val card = createFusionViewModel.allCards.value?.firstOrNull { it.id == cardId }
-            card?.image?.let {
-                imageViewCreateFusionCardOne.setImageBitmap(card.image)
+        createFusionViewModel.selectedCardOne.observe(viewLifecycleOwner) { card ->
+            val selectedCard = createFusionViewModel.allCards.value?.firstOrNull { it.id == card?.id }
+            selectedCard?.image?.let {
+                imageViewCreateFusionCardOne.setImageBitmap(selectedCard.image)
             } ?: imageViewCreateFusionCardOne.setImageBitmap(null)
             updateSaveButtonState()
         }
-        createFusionViewModel.selectedCardTwoId.observe(viewLifecycleOwner) { cardId ->
-            val card = createFusionViewModel.allCards.value?.firstOrNull { it.id == cardId }
-            card?.image?.let {
-                imageViewCreateFusionCardTwo.setImageBitmap(card.image)
+        createFusionViewModel.selectedCardTwo.observe(viewLifecycleOwner) { card ->
+            val selectedCard = createFusionViewModel.allCards.value?.firstOrNull { it.id == card?.id }
+            selectedCard?.image?.let {
+                imageViewCreateFusionCardTwo.setImageBitmap(selectedCard.image)
             } ?: imageViewCreateFusionCardTwo.setImageBitmap(null)
             updateSaveButtonState()
         }
-        createFusionViewModel.selectedCardResultId.observe(viewLifecycleOwner) { cardId ->
-            val card = createFusionViewModel.allCards.value?.firstOrNull { it.id == cardId }
-            card?.image?.let {
-                imageViewCreateFusionResult.setImageBitmap(card.image)
+        createFusionViewModel.selectedCardResult.observe(viewLifecycleOwner) { card ->
+            val selectedCard = createFusionViewModel.allCards.value?.firstOrNull { it.id == card?.id }
+            selectedCard?.image?.let {
+                imageViewCreateFusionResult.setImageBitmap(selectedCard.image)
             } ?: imageViewCreateFusionResult.setImageBitmap(null)
             updateSaveButtonState()
         }
@@ -81,38 +80,58 @@ class CreateFusionFragment : Fragment(), CardsListAdapter.CardsListListener {
         imageViewCreateFusionResult.setOnClickListener {
             createFusionViewModel.clearCardResult()
         }
+
+        materialButtonCreateFusionSave.setOnClickListener {
+            createFusionViewModel.saveFusion().observe(viewLifecycleOwner) {
+                findNavController().popBackStack()
+            }
+        }
     }
 
     private fun FragmentCreateFusionBinding.setupListeners() {
         editTextCreateFusionSearchName.addTextChangedListener {
-            cardListAdapter.filterByName(it.toString())
+            filterCards()
         }
 
         editTextCreateFusionSearchAttack.addTextChangedListener {
-            cardListAdapter.filterByAttack(it.toString())
+            filterCards()
         }
 
         editTextCreateFusionSearchDefense.addTextChangedListener {
-            cardListAdapter.filterByDefense(it.toString())
+            filterCards()
         }
+    }
+
+    private fun FragmentCreateFusionBinding.filterCards() {
+        val name = editTextCreateFusionSearchName.text.toString()
+        val attack = editTextCreateFusionSearchAttack.text.toString()
+        val defense = editTextCreateFusionSearchDefense.text.toString()
+
+        cardListAdapter.allCards =
+            createFusionViewModel.allCards.value.orEmpty().filter { card ->
+                (if(name.isNotBlank()) {
+                    card.name.lowercase().contains(name.lowercase())
+                } else true ) &&
+                (if(attack.isNotBlank()) {
+                    attack.toInt() == card.attack
+                } else true) &&
+                (if(defense.isNotBlank()) {
+                    defense.toInt() == card.defense
+                } else true)
+            }
     }
 
     private fun FragmentCreateFusionBinding.updateSaveButtonState() {
         materialButtonCreateFusionSave.isEnabled =
             with(createFusionViewModel) {
-                selectedCardOneId.value != null &&
-                selectedCardTwoId.value != null &&
-                selectedCardResultId.value != null
+                selectedCardOne.value != null &&
+                selectedCardTwo.value != null &&
+                selectedCardResult.value != null
             }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        unloadKoinModules(fusionModule)
-    }
-
     override fun onCardClicked(card: Card) {
-        createFusionViewModel.updateSelectedCards(card.id)
+        createFusionViewModel.updateSelectedCards(card)
     }
 
 }
