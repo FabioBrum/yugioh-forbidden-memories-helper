@@ -7,6 +7,7 @@ The YuGiOh Forbidden Memories Helper app was built using MVVM architecture princ
 The app has two main module layers: `Feature` and `Core`;
 
 `Feature`: It contains all modules related to UI in the app. In this project we have four feature modules: `:feature:cards`, `:feature:characters`, `:feature:fusion` and `:feature:designsystem`. Since these modules are only responsible for UI, it doesn't implement any modules related to the data layer, which guarantees that all UI code is agnostic to data entities and technologies. This means the UI layer only uses domain entities, so *all* data has to go through a mapping before it reaches this layer;
+
 `Core`: All modules related to domain and data layer are contained in this module layer. This project contain three core modules: `:core:domain`, `:core:network` and `:core:database`. Even though the domain layer is contained in this package together with the data layer, it doesn't have any dependencies to these modules, respecting the agnosticism of any layer required for a correct implementation of a domain layer. 
 
 This graph represents the current app modularization, with all dependencies between them represented by the arrows:
