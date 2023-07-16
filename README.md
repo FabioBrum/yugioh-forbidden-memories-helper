@@ -32,6 +32,9 @@ The navigation on the app was also based on Now In Android project's [documentat
 
 This `BottomNavigationView` enables the user to enter any of the three flows at any screen in the app, keeping the their current navigation stack. Here is how this view is presented on the app:
 
+![BottomNavigationView](https://github.com/FabioBrum/yugioh-forbidden-memories-helper/assets/49159226/66329dd3-8353-4b01-9479-a3e4788e963b)
+
+
 ## Database
 I decided to divide the app in two different databases: `Database` and `UserDatabase`. This decision was based on the idea that all immutable and mutable data should be on separated, in `Database` and `UserDatabase` respectively.
 
