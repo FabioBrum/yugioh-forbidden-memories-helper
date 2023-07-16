@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.cards.R
@@ -37,11 +38,13 @@ class MainCardsFragment : Fragment(), CardsListAdapter.CardsListListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
 
-        imageButtonMainCardsGoToFiltersScreen.setOnClickListener {
-            val action = MainCardsFragmentDirections.mainCardsFragmentToMainCardsFiltersFragment()
-            findNavController().navigate(action)
+        with(binding) {
+            setupObservers()
+            setupListeners()
         }
+    }
 
+    private fun FragmentMainCardsBinding.setupObservers() {
         mainCardsViewModel.allCards.observe(viewLifecycleOwner) {
             val currentFilter = mainCardsViewModel.filters.value
 
@@ -57,6 +60,20 @@ class MainCardsFragment : Fragment(), CardsListAdapter.CardsListListener {
                 adapter = cardsListAdapter
                 layoutManager = gridLayoutManager
             }
+        }
+    }
+
+    private fun FragmentMainCardsBinding.setupListeners() {
+        imageButtonMainCardsGoToFiltersScreen.setOnClickListener {
+            val action = MainCardsFragmentDirections.mainCardsFragmentToMainCardsFiltersFragment()
+            findNavController().navigate(action)
+        }
+
+        editTextMainCardsSearchName.addTextChangedListener {
+            val allCards = mainCardsViewModel.allCards.value.orEmpty()
+
+            cardsListAdapter.allCards =
+                allCards.filter { card -> card.name.contains(it.toString(), true) }
         }
     }
 
