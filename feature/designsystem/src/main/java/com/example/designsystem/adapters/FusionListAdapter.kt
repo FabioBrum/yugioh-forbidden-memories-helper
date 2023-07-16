@@ -1,11 +1,11 @@
-package com.example.fusion.adapters
+package com.example.designsystem.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.designsystem.databinding.FusionItemBinding
 import com.example.domain.model.Fusion
-import com.example.fusion.databinding.FusionItemBinding
 
 class FusionListAdapter: Adapter<FusionListAdapter.FusionListViewHolder>() {
 

@@ -2,11 +2,14 @@ package com.example.designsystem.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.fragment.findNavController
 import com.example.designsystem.databinding.FragmentCardDetailDialogBinding
 import com.example.domain.model.Card
 import com.example.domain.model.Type
@@ -33,6 +36,8 @@ class CardDetailDialogFragment(private val card: Card) : DialogFragment() {
                 Type.MONSTER -> handleMonsterTypeCard(card)
                 else -> handleOtherTypesOfCard(card)
             }
+
+            setupListeners()
         }
     }
 
@@ -59,5 +64,23 @@ class CardDetailDialogFragment(private val card: Card) : DialogFragment() {
             card.type.name.lowercase().replaceFirstChar {
                 if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
             }
+    }
+
+    private fun FragmentCardDetailDialogBinding.setupListeners() {
+        materialButtonCardDetailsDialogHowToMakeIt.setOnClickListener {
+            navigateToCardFusions(getFusionsThatGenerateCard = true)
+        }
+        materialButtonCardDetailsDialogWhatDoesItMake.setOnClickListener {
+            navigateToCardFusions(getFusionsThatGenerateCard = false)
+        }
+    }
+
+    private fun navigateToCardFusions(getFusionsThatGenerateCard: Boolean) {
+        val uri =
+            Uri.parse(
+                "app://com.example.yugioh_forbidden_memories_helper/cardFusionsFragment/cardId=${card.id}&getFusionsThatGenerateCard=${getFusionsThatGenerateCard}&cardName=${card.name}"
+            )
+        val request = NavDeepLinkRequest.Builder.fromUri(uri).build()
+        findNavController().navigate(request)
     }
 }

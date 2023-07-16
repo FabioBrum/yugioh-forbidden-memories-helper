@@ -25,4 +25,24 @@
         android:name="com.example.designsystem.dialog.CardDetailDialogFragment"
         tools:layout="@layout/fragment_card_detail_dialog">
     </fragment>
+
+    <fragment
+        android:id="@+id/cardFusionsFragment"
+        android:name="com.example.cards.fragments.CardFusionsFragment"
+        tools:layout="@layout/fragment_card_fusions">
+
+        <argument
+            android:name="cardId"
+            app:argType="string" />
+
+        <argument
+            android:name="getFusionsThatGenerateCard"
+            app:argType="boolean" />
+
+        <argument
+            android:name="cardName"
+            app:argType="string" />
+
+        <deepLink app:uri="app://com.example.yugioh_forbidden_memories_helper/cardFusionsFragment/cardId={cardId}&amp;getFusionsThatGenerateCard={getFusionsThatGenerateCard}&amp;cardName={cardName}" />
+    </fragment>
 </navigation>

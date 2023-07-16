@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fusion.adapters.FusionListAdapter
+import com.example.designsystem.adapters.FusionListAdapter
 import com.example.fusion.databinding.FragmentMainFusionBinding
 import com.example.fusion.di.fusionModule
 import com.example.fusion.viewmodels.MainFusionViewModel
