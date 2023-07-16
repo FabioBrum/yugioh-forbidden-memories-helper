@@ -1,4 +1,9 @@
-# YuGiOh Forbidden Memories Helper
+# Yu-Gi-Oh! Forbidden Memories Helper
+This is a personal app that I started to build after one year of experience on Android programming. I've always enjoyed playing the *[Yu-Gi-Oh! Forbidden Memories]*(https://pt.wikipedia.org/wiki/Yu-Gi-Oh!_Forbidden_Memories) game on my Playstation 1 during my childhood. Still, after all these years, I still play it both on my console and my smartphone (with emulators, of course).
+
+But even after more than a decade playing this game I still have the same problem: *there is so much information that I can't keep track of it!*. There are so many possible fusions, and each character in the game drops different cards, with different odds for each type of victory, that my mind can't keep up storing all of it :sweat_smile: ...
+
+Therefore, I decided to develop an Android App that would solve this problem for me, which is where I got the *Yu-Gi-Oh! Forbidden Memories Helper* idea from. I also started this project, of course, to use it as part of my portfolio and to show my progress from my previous project, which I started last year. But from the start I wanted to develop something that was personal and useful to me, and I'm happy to say that I created something that I really use in my everyday life (and that you can too, if you go through the same problem playing this game :wink:) 
 
 ## Architecture
 The YuGiOh Forbidden Memories Helper app was built using MVVM architecture principals, based also on android project [Now in Android](https://github.com/android/nowinandroid). 
@@ -33,7 +38,6 @@ The navigation on the app was also based on Now In Android project's [documentat
 This `BottomNavigationView` enables the user to enter any of the three flows at any screen in the app, keeping the their current navigation stack. Here is how this view is presented on the app:
 
 ![BottomNavigationView](https://github.com/FabioBrum/yugioh-forbidden-memories-helper/assets/49159226/66329dd3-8353-4b01-9479-a3e4788e963b)
-
 
 ## Database
 I decided to divide the app in two different databases: `Database` and `UserDatabase`. This decision was based on the idea that all immutable and mutable data should be on separated, in `Database` and `UserDatabase` respectively.
