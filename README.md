@@ -51,7 +51,11 @@ The `UserDatabase` is mutable, though. Therefore, none of the behaviors above af
 ## Libraries used
 
 `Dependency injection`: [Koin](https://insert-koin.io/docs/quickstart/android/)
+
 `Database`: [Room](https://developer.android.com/training/data-storage/room)
+
 `Navigation`: [Jetpack's Navigation](https://developer.android.com/guide/navigation)
+
 `Webscraping`: [JSOUP](https://jsoup.org/)
+
 `Unit tests` [JUnit4](https://junit.org/junit4/) and [mockK](https://mockk.io/ANDROID.html)
